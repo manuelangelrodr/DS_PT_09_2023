@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import numpy as np
 from datetime import datetime
 
@@ -8,9 +8,20 @@ app.config.from_object("config")
 
 @app.route('/')
 def index():
-    print('esto no funciona en la web pero si en la terminal')
-    print(app.config['BCRYPT_LOG_ROUNDS'])
-    return "<h1>Hola Solecito!</h1>"
+    return render_template('home.html')
+
+@app.route("/user/<name>")
+def index4(name):
+    index=1
+    mylist = ['elemento1', 'elemento2', 'elemento3', 'elemento4']
+    mydict = {'key': 'valor'}
+    mytuple = ('tuple1', 'tuple2', 'tuple3', 'tuple4')
+    return render_template("home.html", name=name, myindex=index, mylist=mylist, mydict=mydict, mytuple=mytuple)
+
+@app.route('/nombres')
+def nombres():
+    nombres = ['Juan', 'Ana', 'Carlos', 'María']  # Esta lista puede ser obtenida de forma dinámica
+    return render_template('nombres.html', nombres=nombres)
 
 @app.route('/rodrigo')
 def index1():
